@@ -26,11 +26,8 @@ jobs:
         run: npm run build
 
       - name: Deploy to EC2
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          src: dist/
-          dest: ${{ secrets.EC2_APP_PATH }}/
-          args: --delete
+        run: |
+          rsync -avz dist/ \
+          ${{secrets.EC2_USER}}@${{secrets.EC2_HOST}}:${{secrets.EC2_APP_PATH}}
+          
+        
