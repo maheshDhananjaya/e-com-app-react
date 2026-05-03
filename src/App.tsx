@@ -14,6 +14,11 @@ type Product = {
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [cartCount, setCartCount] = useState(0);
+
+  const handleAddToCart = () => {
+    setCartCount((prev) => prev + 1);
+  };
 
   const products = useMemo<Product[]>(
     () =>
@@ -32,13 +37,17 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header cartCount={cartCount} />
       <main className="app-main">
         <SearchBar onSearch={setSearchQuery} />
         <h3>Product List</h3>
         <div className="product-list">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={handleAddToCart}
+            />
           ))}
         </div>
       </main>
