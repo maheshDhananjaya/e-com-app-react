@@ -1,13 +1,21 @@
 import "../index.css";
 import img from "../assets/react.svg";
 
-const ProductCard = () => {
+type ProductCardProps = {
+  product: {
+    name: string;
+    description: string;
+    price: number;
+  };
+};
+
+const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div className="product-card">
       <img src={img} alt="Product Image" loading="lazy" />
-      <h4>Product Name</h4>
-      <p>Product Description</p>
-      <p>Price: $100</p>
+      <h4>{product.name}</h4>
+      <p>{product.description}</p>
+      <p>Price: ${product.price}</p>
     </div>
   );
 };
